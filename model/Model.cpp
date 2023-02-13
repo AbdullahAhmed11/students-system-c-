@@ -1,14 +1,11 @@
 #include <bits/stdc++.h>
 using namespace std;
-
-// create model baseEntity
-class BaseEntity
+// create shareData model
+class ShareData
 {
 private:
     int id;
     string name;
-    int age;
-    string phoneNumber;
 
 public:
     // seter
@@ -20,15 +17,6 @@ public:
     {
         this->name = name;
     }
-    void setAge(int age)
-    {
-        this->age = age;
-    }
-    void setPhoneNumber(string phoneNumber)
-    {
-        this->phoneNumber = phoneNumber;
-    }
-
     // geter
     int getId()
     {
@@ -38,6 +26,25 @@ public:
     {
         return name;
     }
+};
+
+// create model baseEntity
+class BaseEntity : public ShareData
+{
+private:
+    int age;
+    string phoneNumber;
+
+public:
+    void setAge(int age)
+    {
+        this->age = age;
+    }
+    void setPhoneNumber(string phoneNumber)
+    {
+        this->phoneNumber = phoneNumber;
+    }
+
     int getAge()
     {
         return age;
@@ -64,7 +71,7 @@ public:
     }
     void setStudentsIds(int studentsIds[5])
     {
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < sizeof(studentsIds) / sizeof(studentsIds[0]); i++)
         {
             this->studentsIds[i] == studentsIds[i];
         }
@@ -81,6 +88,38 @@ public:
     }
 };
 
+// create course model
+class Course : public ShareData
+{
+private:
+    double hour;
+    int studentsIds[5];
+
+public:
+    // seter
+    void setHour(double hour)
+    {
+        this->hour = hour;
+    }
+    void setStudentsIds(int studentsIds[5])
+    {
+        for (int i = 0; i < sizeof(studentsIds) / sizeof(studentsIds[0]); i++)
+        {
+            this->studentsIds[i] == studentsIds[i];
+        }
+    }
+
+    // geter
+    double getHour()
+    {
+        return hour;
+    }
+    int *getStudentsIds()
+    {
+        return studentsIds;
+    }
+};
+
 // create model students
 class Student : public BaseEntity
 {
@@ -88,6 +127,7 @@ private:
     double gpa;
     string n;
     Teacher teachers[5];
+    Course courses[5];
 
 public:
     // seter
@@ -98,9 +138,16 @@ public:
     }
     void setTeachers(Teacher teachers[5])
     {
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < sizeof(teachers) / sizeof(teachers[0]); i++)
         {
             this->teachers[i] = teachers[i];
+        }
+    }
+    void setCourses(Course courses[5])
+    {
+        for (int i = 0; i < sizeof(courses) / sizeof(courses[0]); i++)
+        {
+            this->courses[i] = courses[i];
         }
     }
     // geter
@@ -112,5 +159,9 @@ public:
     Teacher *getTeachers()
     {
         return teachers;
+    }
+    Course *getCourses()
+    {
+        return courses;
     }
 };

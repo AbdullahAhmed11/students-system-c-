@@ -1,0 +1,35 @@
+#include "../service/Service.cpp"
+
+class StudentController
+{
+private:
+    StudentService studentService;
+
+public:
+    int addStudent(Student student)
+    {
+        return studentService.addStudent(student);
+    }
+};
+class CourseController
+{
+private:
+    CoursesService cursesService;
+
+public:
+    int addCourse(Course course)
+    {
+        return cursesService.addCourse(course);
+    }
+};
+class TeacherController
+{
+private:
+    TeacherService teacherService;
+
+public:
+    int addTeacher(Teacher teacher)
+    {
+        return teacherService.addTeacher(teacher);
+    }
+}

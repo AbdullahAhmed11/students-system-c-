@@ -1,5 +1,5 @@
 #include "../service/Service.cpp"
-
+// student controller
 class StudentController
 {
 private:
@@ -11,6 +11,7 @@ public:
         return studentService.addStudent(student);
     }
 };
+// courses controller
 class CourseController
 {
 private:
@@ -22,6 +23,7 @@ public:
         return cursesService.addCourse(course);
     }
 };
+// teacher controller
 class TeacherController
 {
 private:

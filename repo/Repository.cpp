@@ -1,6 +1,32 @@
 #include <bits/stdc++.h>
 using namespace std;
 #include "../model/Model.cpp"
+//static data
+class Data {
+public:
+		static Student students[25];
+		static int indexStudent;
+		static int idStudent;
+		static Course courses[25];
+		static int indexCourse;
+		static int idCourse;
+		static Teacher teachers[25];
+		static int indexTeacher;
+		static int idTeacher;
+};
+
+// init static data
+Student Data::students[25];
+int Data::indexStudent = 0;
+int Data::idStudent = 1;
+Course Data::courses[25];
+int Data::indexCourse = 0;
+int Data::idCourse = 1;
+Teacher Data::teachers[25];
+int Data::indexTeacher = 0;
+int Data::idTeacher = 1;
+
+
 
 /////////////student
 // interface studentRepository
@@ -8,28 +34,42 @@ class StudentRepository
 {
 public:
     virtual int addStudent(Student student) = 0;
+    virtual Student getStudentById(int id) = 0;
+    virtual int editStudent(Student student) = 0;
 };
 
 // class studentRepositoryImpl
 class studentRepositoryImpl : public StudentRepository
 {
 private:
-    Student students[25];
-    int index = 0;
+    Data data;
+    Student invalidStudent;
+    int index = -1;
 
 public:
     int addStudent(Student student)
     {
-        if (index == 25)
+        if (data.indexStudent == 25)
         {
-            cout << "Full Students" << endl;
+            return -1;
         }
         else
         {
-            students[index] = student;
-            index++;
+            student.setId(data.idStudent++);
+            data.students[data.indexStudent++];
         }
+        return student.getId();
     }
+    Student getStudentById(int id) {
+        for(int i=0; i<data.indexStudent;i++){
+            if(data.students[i].getId == id) {
+                return data.students[i];
+            }
+        }
+        invalidStudent.setId(-1)
+        return invalidStudent;
+    }
+
 };
 /////////////course
 // interface courseRepository

@@ -1,21 +1,40 @@
 #include "../repo/Repository.cpp"
+#include "../validation/Validation.cpp"
 
 // studnt sevice
 class StudentService
 {
 public:
     virtual int addStudent(Student student) = 0;
+    virtual Student getStudentById(int id) = 0;
 };
 class StudentServiceImpl
 {
 private:
     StudentRepository studentRepository;
+    StudentValidation studentValidation;
+    ValidationService validationService;
+    Student studentResult;
 
 public:
-    int addStudent(Student student)
-    {
-        return studentRepository.addStudent(student);
-    }
+		int addStudent(Student student) {
+			if(studentValidation.validteStudent(student) == 1){
+				int id = studentRepository.addStudent(student);
+				if(id == -1){
+					validationService.fullData("Student");
+				} else {
+					return id;
+				}
+			}
+			return -1;
+		}
+		Student getStudentById(int id) {
+			studentResult = studentRepository.getStudentById(id);
+			if(studentResult.getId() == -1){
+				validationService.notExist("Student",id);
+			}
+			return studentResult;
+		}
 };
 
 // course service
